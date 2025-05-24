@@ -1,6 +1,8 @@
 services:
   app:
     build: .
+    image: reg.home.cloudgeni.us/ollama-docker:latest
+    container_name: app
     ports:
       - 8000:8000
       - 5678:5678
