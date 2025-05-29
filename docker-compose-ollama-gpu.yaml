@@ -12,7 +12,7 @@ services:
     restart: always
     depends_on:
       - ollama
-      - ollama-webui
+      - open-webui
     networks:
       - ollama-docker
       
@@ -22,7 +22,7 @@ services:
     container_name: ollama
     pull_policy: always
     tty: true
-    restart: unless-stopped
+    restart: always
     image: docker.io/ollama/ollama:latest
     ports:
       - 7869:11434
@@ -40,11 +40,12 @@ services:
               capabilities: 
                 - gpu
 
-  ollama-webui:
+  open-webui:
     image: ghcr.io/open-webui/open-webui:main
-    container_name: ollama-webui
+    container_name: open-webui
+    pull_policy: always
     volumes:
-      - ./ollama/ollama-webui:/app/backend/data
+      - ./ollama/open-webui:/app/backend/data
     depends_on:
       - ollama
     ports:
@@ -58,7 +59,7 @@ services:
       - WEBUI_SECRET_KEY=secret
     extra_hosts:
       - host.docker.internal:host-gateway
-    restart: unless-stopped
+    restart: always
     networks:
       - ollama-docker
 
