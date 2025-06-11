@@ -1,6 +1,8 @@
 services:
   app:
     build: .
+    container_name: ollama-app
+    image: reg.home.cloudgeni.us/app:latest
     ports:
       - 8000:8000
       - 5678:5678
@@ -39,6 +41,7 @@ services:
   ollama-webui:
     image: ghcr.io/open-webui/open-webui:main
     container_name: ollama-webui
+    pull_policy: always
     volumes:
       - ./ollama/ollama-webui:/app/backend/data
     depends_on:
